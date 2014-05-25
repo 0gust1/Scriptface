@@ -1,0 +1,19 @@
+{
+  "name": "scriptface",
+  "main": "index.html",
+  "version": "0.0.1",
+  "single-instance": true,
+  "window": {
+    "title": "Scriptface",
+    "width": 650,
+    "height": 650,
+    "min_width": 650,
+    "min_height": 650,
+    "toolbar": true
+  },
+  "chromium-args": "--child-clean-exit",
+  "devDependencies": {
+    "ansi-to-html": "^0.2.0",
+    "ansispan": "0.0.4"
+  }
+}

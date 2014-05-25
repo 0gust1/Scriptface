@@ -1,0 +1,156 @@
+<div class="wrapper" dropzone drop="handleDrop" ng-controller="dropzoneCtrl">
+    <header class="project-header">
+        <h1>
+            <input type="text" value="{{project.name}}" editable-text="project.name" placeholder="Unnamed project">
+        </h1>
+
+        <h2>{{process.version}}</h2>
+
+        <div>
+            <input type="text" value="{{project.rootDir}}" id="project_root-dir" class="input_mono"
+                   placeholder="Project path : drop a folder here">
+
+        </div>
+        <ul class="project-menu">
+            <!--<li><button class="icon-pencil">Edit</button></li>-->
+            <li>
+                <button class="icon-install" ng-controller="fileCtrl" ng-click="saveFile()">Save project tasks</button>
+            </li>
+        </ul>
+
+    </header>
+
+    <section class="task-lists">
+
+        <h2 class="task-list-title">Project tasks <span class="count">({{project.tasks.length}})</span></h2>
+
+        <ul class="task-list custom-tasks">
+
+            <li ng-repeat="task in project.tasks">
+                <div task task-list="tasks" class="task-list__task" ng-controller="taskCtrl" ng-init="show=false">
+                    <div class="task-main">
+                        <button type="button" class="btn-launch" ng-class="{running: task.state.running==true}">
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="icon-play"></span>
+                        </button>
+                        <div class="task-list__task__info">
+                            <h3>
+                                <input type="text" editable-text="task.name" value="{{task.name || 'empty'}}">
+                            </h3>
+
+                            <div editable-textarea="task.description" e-rows="7" e-cols="40">
+                                {{task.description || 'no description'}}
+                            </div>
+                        </div>
+                        <ul class="task-list__task__menu">
+                            <li>
+                                <div ng-click="show=!show" class="btn-detail" ng-class="{hide: show==true}">
+                                    <div class="barre1"></div>
+                                    <div class="barre2"></div>
+                                </div>
+                            </li>
+                            <!--<li><a ng-click="show=!show">Copy to project tasks</a></li>
+                            <li><a href="#">Delete</a></li>-->
+                        </ul>
+                    </div>
+                    <ul class="task-list__task__detail" ng-show="show">
+                        <li><label class="command">
+                            Command :
+                            <input class="task-command input_mono" type="text" ng-model="task.cli_command"
+                                   placeholder="CLI command"/>
+                        </label></li>
+                        <li><textarea class="cli_output">{{task.data}}</textarea></li>
+                    </ul>
+                </div>
+            <li>
+
+        </ul>
+
+        <h2 class="task-list-title">Npm tasks <span class="count">({{project.npm_tasks.length}})</span></h2>
+        <ul class="task-list npm-tasks">
+            <li ng-repeat="task in project.npm_tasks">
+                <div task task-list="npm_tasks" class="task-list__task" ng-controller="taskCtrl" ng-init="show=false">
+                    <div class="task-main">
+                        <button type="button" class="btn-launch" ng-class="{running: task.state.running==true}">
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="icon-play"></span>
+                        </button>
+                        <div class="task-list__task__info">
+                            <h3>
+                                <input type="text" editable-text="task.name" value="{{task.name || 'empty'}}">
+                            </h3>
+
+                            <div editable-textarea="task.description" e-rows="7" e-cols="40">
+                                {{task.description || 'no description'}}
+                            </div>
+                        </div>
+                        <ul class="task-list__task__menu">
+                            <li>
+                                <div ng-click="show=!show" class="btn-detail" ng-class="{hide: show==true}">
+                                    <div class="barre1"></div>
+                                    <div class="barre2"></div>
+                                </div>
+                            </li>
+                            <!--<li><a ng-click="show=!show">Copy to project tasks</a></li>
+                            <li><a href="#">Delete</a></li>-->
+                        </ul>
+                    </div>
+                    <ul class="task-list__task__detail" ng-show="show">
+                        <li><label class="command">
+                            Command :
+                            <input class="task-command input_mono" type="text" ng-model="task.cli_command"
+                                   placeholder="CLI command"/>
+                        </label></li>
+                        <li><textarea class="cli_output">{{task.data}}</textarea></li>
+                    </ul>
+                </div>
+            <li>
+        </ul>
+        <h2 class="task-list-title">Grunt tasks <span class="count">({{project.grunt_tasks.length}})</span></h2>
+        <ul class="task-list grunt-tasks">
+            <li ng-repeat="task in project.grunt_tasks">
+                <div task task-list="grunt_tasks" class="task-list__task" ng-controller="taskCtrl" ng-init="show=false">
+                    <div class="task-main">
+                        <button type="button" class="btn-launch" ng-class="{running: task.state.running==true}">
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="loader"></span>
+                            <span class="icon-play"></span>
+                        </button>
+                        <div class="task-list__task__info">
+                            <h3>
+                                <input type="text" editable-text="task.name" value="{{task.name || 'empty'}}">
+                            </h3>
+
+                            <div editable-textarea="task.description" e-rows="7" e-cols="40">
+                                {{task.description || 'no description'}}
+                            </div>
+                        </div>
+                        <ul class="task-list__task__menu">
+                            <li>
+                                <div ng-click="show=!show" class="btn-detail" ng-class="{hide: show==true}">
+                                    <div class="barre1"></div>
+                                    <div class="barre2"></div>
+                                </div>
+                            </li>
+                            <!--<li><a ng-click="show=!show">Copy to project tasks</a></li>
+                            <li><a href="#">Delete</a></li>-->
+                        </ul>
+                    </div>
+                    <ul class="task-list__task__detail" ng-show="show">
+                        <li><label class="command">
+                            Command :
+                            <input class="task-command input_mono" type="text" ng-model="task.cli_command"
+                                   placeholder="CLI command"/>
+                        </label></li>
+                        <li><textarea class="cli_output">{{task.data}}</textarea></li>
+                    </ul>
+                </div>
+            <li>
+        </ul>
+    </section>
+</div>
