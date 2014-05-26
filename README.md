@@ -1,5 +1,8 @@
 # Scriptface
 
+![scriptface screenshot](https://github.com/0gust1/Scriptface/raw/master/scriptface_screenshot.png "scriptface screenshot")
+
+
 A desktop application providing a little scripting dashboard for your projects.
 
 Drop a folder on the application windows, and it will expose you a simple interface over actionnable scripts
