@@ -9,14 +9,14 @@ This tool can be used as :
 * a first layer of documentation for your projects
 
 Features :
-* Allow
+* Allow project-based task definition (persisted in `command.json` file, in your project root).
 * parses and expose package.json tasks
 * parses and expose grunt tasks
 * parses and expose gulp tasks (TODO)
 * parses and expose Makefile contents (TODO)
 * ... etc. TODO
 
-Tools used :
+**Tools used :**
 
 - node-webkit yeoman generator
 - node-webkit
@@ -32,7 +32,27 @@ This application uses node-webkit as a runtime.
 * Download and install node-webkit, download the app archive (*.nw file), launch node-webkit with the app archive as parameter.
 * Download and install node-webkit, clone this repository and launch node-webkit with the app directory as a parameter.
 
+### prebuilt binaries :
+
+
 ## How to customise, play with it
+
+### Build and run your own version :
+
+**Build environnement :**
+
+* install the yeoman generator `generator-node-webkit`
+* Run it on a folder
+
+**Project :**
+
+* clone this project in `your_node-webkit_folder/app/`
+* do `npm install` and `bower install`in the folder
+
+**Launching :**
+Basically `node-webkit_executable_path "your_app_folder"` :
+
+`/Applications/node-webkit.app/Contents/MacOS/node-webkit  "/your_folder_path/app/"`
 
 
 ## How to contribute ?
@@ -48,3 +68,12 @@ TODO
 * Tests
 * Optimize angular release build.
 * Localization
+
+## Links and references
+
+* node-webkit : https://github.com/rogerwang/node-webkit
+* node-webkit wiki : https://github.com/rogerwang/node-webkit/wiki
+* node-webkit yeoman generator : https://www.npmjs.org/package/generator-node-webkit
+
+* some useful posts about node-webkit : https://ehret.me
+
