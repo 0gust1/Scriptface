@@ -3,12 +3,12 @@
 ![scriptface screenshot](https://github.com/0gust1/Scriptface/raw/master/scriptface_screenshot.png "scriptface screenshot")
 
 
-A desktop application providing a little scripting dashboard for your projects.
+A desktop application providing a little dashboard for your project's scripts.
 
 Drop a folder on the application windows, and it will expose you a simple interface over actionnable scripts
 
 This tool can be used as :
-* a sort of command-line helper for your less-technical team members
+* a sort of command-line helper
 * a first layer of documentation for your projects
 
 **Features :**
@@ -25,7 +25,7 @@ This tool can be used as :
 - node-webkit
 - AngularJS
 
-## How to use / install it :
+## Install it :
 
 This application uses node-webkit as a runtime.
 
@@ -37,9 +37,11 @@ This application uses node-webkit as a runtime.
 
 ### prebuilt binaries :
 
-You're foolish alpha-tester, okay :
+You're a foolish alpha-tester, okay :
 
 https://www.dropbox.com/sh/vehbwf22hy6upqs/AAAvZJzOsyDwbMfbU46StMwMa
+
+Be warned, it's still rude (but it seems to do the job).
 
 ## How to customise, play with it
 
