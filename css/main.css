@@ -289,10 +289,13 @@ input {
 .btn-launch .icon-play{opacity:1; position:absolute; top:30%; left:30%;}
 .btn-launch.running .icon-play{-webkit-transition: all 0.7s;-moz-transition: all 0.7s;-ms-transition: all 0.7s;-o-transition: all 0.7s;transition: all 0.7s;}
 .btn-launch.running {color:#2ecc40;}
-.btn-launch.running:hover .icon-stop{opacity:1;}
-.btn-launch.running:hover .icon-play{opacity:0;}
+.btn-launch.running:hover .icon-stop,
+.btn-launch.running:active .icon-stop{opacity:1;}
+.btn-launch.running:hover .icon-play,
+.btn-launch.running:active .icon-play{opacity:0;}
 
-.btn-launch.running:hover .loader:nth-child(n){border: 2px solid #ff3d1b;}
+.btn-launch.running:hover .loader:nth-child(n),
+.btn-launch.running:active .loader:nth-child(n){border: 2px solid #ff3d1b;}
 /*
 .btn-launch.running .loader:nth-child(n){
     border: 2px solid #2ecc40;
