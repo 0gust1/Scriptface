@@ -19,8 +19,7 @@ angular
     'ngAnimate',
     'ngRoute',
     'ui-dropzone',
-    'ui-task',
-    'ansiToHtml'
+    'ui-task'
   ])
   .config(function ($routeProvider) {
     $routeProvider

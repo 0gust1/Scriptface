@@ -285,20 +285,27 @@ input {
     border: 1px solid #2ecc40;
     color: #2ecc40;
 }
-
+.btn-launch .icon-stop{opacity:0; color: #ff3d1b; position:absolute; top:35%; left:35%; -webkit-transition: all 0.7s;-moz-transition: all 0.7s;-ms-transition: all 0.7s;-o-transition: all 0.7s;transition: all 0.7s;}
+.btn-launch .icon-play{opacity:1; position:absolute; top:30%; left:30%;}
+.btn-launch.running .icon-play{-webkit-transition: all 0.7s;-moz-transition: all 0.7s;-ms-transition: all 0.7s;-o-transition: all 0.7s;transition: all 0.7s;}
 .btn-launch.running {color:#2ecc40;}
+.btn-launch.running:hover .icon-stop{opacity:1;}
+.btn-launch.running:hover .icon-play{opacity:0;}
+
+.btn-launch.running:hover .loader:nth-child(n){border: 2px solid #ff3d1b;}
+/*
 .btn-launch.running .loader:nth-child(n){
-    border: 1px solid #2ecc40;
+    border: 2px solid #2ecc40;
     color: #2ecc40;
     -webkit-animation: load8 1.5s infinite linear;
     animation: load8 1.5s infinite linear;
 }
 .btn-launch.running .loader:nth-child(2n){
-    border: 1px solid #2ecc40;
+    border: 2px solid #2ecc40;
     color: #2ecc40;
     -webkit-animation: load9 1.5s infinite linear;
     animation: load9 1.5s infinite linear;
-}
+}*/
 /*.btn-launch.running .loader:nth-child(3n){
     border: 0.2em solid #2ecc40;
     color: #2ecc40;
@@ -307,6 +314,44 @@ input {
     animation: load10 1.5s infinite linear;
 }*/
 
+
+.btn-launch.running .loader {
+    text-indent: -9999em;
+    border-top: 2px solid rgba(46, 204, 64, 0.7);
+    border-right: 2px solid rgba(46, 204, 64, 0.7);
+    border-bottom: 2px solid rgba(46, 204, 64, 0.7);
+    border-left: 2px solid rgba(46, 204, 64, 1);
+    -webkit-animation: load8 1.1s infinite linear;
+    animation: load8 1.1s infinite linear;
+}
+.btn-launch.running .loader,
+.loader:after {
+    border-radius: 50%;
+}
+@-webkit-keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load8 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+/**/
+
+
+/*
 @-webkit-keyframes load8 {
     0% {
         -webkit-transform: rotateZ(0deg) rotateY(0deg);
@@ -327,6 +372,7 @@ input {
         transform:rotateZ(360deg) rotateX(360deg);
     }
 }
+*/
 /*@-webkit-keyframes load10 {
     0% {
         -webkit-transform: rotateX(0deg) rotateZ(0deg);

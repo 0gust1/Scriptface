@@ -1,5 +1,5 @@
 angular.module('ScriptfaceApp')
-  .controller('taskCtrl', function ($scope, ansi2html) {
+  .controller('taskCtrl', function ($scope) {
 
 
     $scope.handleClick = function (taskListName, task, index) {
@@ -10,8 +10,10 @@ angular.module('ScriptfaceApp')
       var command = commandV.shift();
       var shell = undefined;
       var Convert = require('ansi-to-html');
-      var ansispan = require('ansispan');
-      var convert = new Convert();
+      var ansiconverter = require('ansi-html-stream');
+      //var ansispan = require('ansispan');
+      //require('colors');
+      //var convert = new Convert();
 
       function stopCommand() {
         console.log("stopcommand : " + index);
@@ -23,6 +25,7 @@ angular.module('ScriptfaceApp')
       }
 
       function launchCommand() {
+        var convert = new Convert();
 
         shell = spawn(command,
           commandV,
@@ -31,10 +34,6 @@ angular.module('ScriptfaceApp')
           }
         );
 
-        console.log("TAAASSSKK");
-        console.dir(index);
-        console.dir($scope.project[taskListName]);
-
         if (!$scope.project[taskListName][index].state) {
           $scope.project[taskListName][index].state = {};
         }
@@ -42,9 +41,9 @@ angular.module('ScriptfaceApp')
         $scope.project[taskListName][index].state.shell = shell;
 
         console.log("child PID" + shell.pid);
-
+        //shell.stdout.pipe(stream);
         shell.stdout.on('data', function (data) {
-
+          //var htmlOutput = convert.toHtml(data);
           $scope.project[taskListName][index].data = $scope.project[taskListName][index].data + data;
 
           $scope.$apply();
@@ -59,7 +58,8 @@ angular.module('ScriptfaceApp')
         shell.on('close', function (code) {
           console.log("closed : child PID " + shell.pid);
           //txtArea.append("Process has exited, with code : " + code +"<br>");
-          $scope.project[taskListName][index].data = $scope.project[taskListName][index].data + code;
+
+          //$scope.project[taskListName][index].data = $scope.project[taskListName][index].data + code;
           delete $scope.project[taskListName][index].state.shell;
           $scope.project[taskListName][index].state.running = false;
           $scope.$apply();

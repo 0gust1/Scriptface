@@ -13,14 +13,16 @@ angular.module('ScriptfaceApp')
       //Handling dropped filepath
       var droppedPath = path.normalize(file.path);
 
-      if (fs.lstatSync(droppedPath).isDirectory()) {
-        //ok
-      } else if (path.basename(droppedPath) === clibuttonsFile) {
-        droppedPath = path.dirname(droppedPath);
-      } else {
-        //error TODO
-        window.alert("Failed - Please drop a directory or a " + clibuttonsFile + " file.");
+
+      if (!fs.lstatSync(droppedPath).isDirectory()) {
+        if(path.basename(droppedPath) === clibuttonsFile){
+          droppedPath = path.dirname(droppedPath);
+        }else{
+          //error TODO
+          window.alert("Failed - Please drop a directory or a " + clibuttonsFile + " file.");
+        }
       }
+
       $scope.project.rootDir = droppedPath;
       //$scope.$apply();
 
@@ -39,7 +41,7 @@ angular.module('ScriptfaceApp')
 
       //try to find a package.json file, gather data in the "script" entry and put it in the scope
       $scope.project.npm_tasks = [];
-      fs.readFile(droppedPath + path.sep + 'package.json', function (err, data) {
+      fs.readFile(path.resolve(droppedPath,'package.json'), function (err, data) {
         if (!err) {
           var nodePackageFile = JSON.parse(data);
           var npm_tasks = [];

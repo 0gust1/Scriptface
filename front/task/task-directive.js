@@ -10,7 +10,7 @@ angular.module('ui-task', []).directive('task', [function () {
         scope.handleClick(attrs.taskList, scope.task, scope.$index);
 
       });
-      var outputZone = e.getElementsByClassName(".cli_output");
+      //var outputZone = e.getElementsByClassName(".cli_output");
 
       //btnLaunch.addEventListener("click", alert("toto"+btnLaunch), false);
 
