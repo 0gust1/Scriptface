@@ -1,0 +1,25 @@
+{
+  "projectName": "Scriptface example",
+  "taskLists": [
+    {"taskListName": "Project tasks",
+      "tasks": [
+        {
+          "name": "Ping google",
+          "description": "some random script",
+          "cli_command": "ping google.com"
+        },
+        {
+          "name": "npm install",
+          "description": "Install nodeJs dependencies",
+          "cli_command": "npm install"
+        },
+        {
+          "name": "npm ls",
+          "description": "list nodejs packages",
+          "cli_command": "npm ls"
+        }
+      ]
+    }
+  ]
+
+}

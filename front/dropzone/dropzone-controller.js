@@ -27,7 +27,7 @@ angular.module('ScriptfaceApp')
       //$scope.$apply();
 
       //read project file
-      fs.readFile(droppedPath + path.sep + clibuttonsFile, function (err, data) {
+      fs.readFile(path.resolve(droppedPath,clibuttonsFile), function (err, data) {
         if (!err) {
           var projectFileObj = JSON.parse(data);
           $scope.project.name = projectFileObj.name;
@@ -64,10 +64,10 @@ angular.module('ScriptfaceApp')
       });
 
       $scope.project.grunt_tasks = [];
-      fs.readFile(droppedPath + path.sep + 'Gruntfile.js', function (err, data) {
+      fs.readFile(path.resolve(droppedPath,'Gruntfile.js'), function (err, data) {
         if (!err) {
 
-          var GruntPath = droppedPath + path.sep + 'node_modules' + path.sep + 'grunt' + path.sep;
+          var GruntPath = path.resolve(droppedPath,'node_modules','grunt');
 
           if (!fs.existsSync(GruntPath)) {
             window.alert('Unable to find local grunt.');
@@ -79,7 +79,7 @@ angular.module('ScriptfaceApp')
           //help.init();
           //var GruntinitConfigFnPath = grunt.file.findup('Gruntfile.{js,coffee}', {cwd: directory, nocase: true});
 
-          require(droppedPath + path.sep + 'Gruntfile.js')(grunt);
+          require(path.resolve(droppedPath,'Gruntfile.js'))(grunt);
 
           var tasks = [];
 

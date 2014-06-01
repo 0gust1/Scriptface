@@ -62,6 +62,12 @@ Basically `node-webkit_executable_path "your_app_folder"` :
 
 `/Applications/node-webkit.app/Contents/MacOS/node-webkit  "/your_folder_path/app/"`
 
+### Extend the capabilities :
+
+Project tasks are "discovered" trough finding some common files (package.json, Gruntfile.js, gulpfile.js etc..).
+
+You can easily add your own "discoverer" by extending the project loader with your own function returning a tasklist object.
+
 
 ## How to contribute ?
 
