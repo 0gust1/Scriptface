@@ -1,9 +1,11 @@
+//var scriptfaceDiscoverer = require("../services/scriptface-discoverer/projectDiscoverer.js");
+
 angular.module('ScriptfaceApp')
   .controller('dropzoneCtrl', function ($scope) {
 
     //a file was dropped
     $scope.handleDrop = function handleDrop(file) {
-      var scriptfaceDiscoverer  =require("../services/scriptface-discoverer");
+
 
       var fs = require('fs');
       var path = require('path');
@@ -93,11 +95,16 @@ angular.module('ScriptfaceApp')
 
           var items = Object.keys(grunt.task._tasks);
           items.forEach(function (task) {
-            tasks.push({
-              name: grunt.task._tasks[task].name,
-              description: grunt.task._tasks[task].info,
-              cli_command: 'grunt ' + grunt.task._tasks[task].name
-            });
+
+            //if it's a "Gruntfile" task, add it to the list
+            if(grunt.task._tasks[task].meta.info == "Gruntfile"){
+              tasks.push({
+                name: grunt.task._tasks[task].name,
+                description: grunt.task._tasks[task].info,
+                cli_command: 'grunt ' + grunt.task._tasks[task].name
+              });
+            }
+
           });
           /* grunt.task._tasks.forEach(function (task) {
            tasks.push({
