@@ -52,8 +52,11 @@ var npmDiscoverer = function (dirPath) {
       //add some basic tasks
       //npm install
       npm_tasks.push({"name": "npm install", "description": "install dependencies", "cli_command": "npm install"});
+
       taskList.tasks = npm_tasks;
       deferred.resolve(taskList);
+    } else {
+      deferred.reject("no package.json");
     }
   });
 
@@ -94,8 +97,10 @@ var gruntDiscoverer = function (dirPath) {
         });
       });
 
-      taskList = tasks;
+      taskList.tasks = tasks;
       deferred.resolve(taskList);
+    } else {
+      deferred.reject("no gruntFile");
     }
   });
 
@@ -124,24 +129,25 @@ var gulpDiscoverer = function (dirPath) {
 
       var gulp = require(gulpPath); //get a 'local' gulp
       //feed the current gulpfile to local gulp
-      require(path.resolve(dirPath, 'gulpfile.js'))(gulp);
-
+      require(path.resolve(dirPath, 'gulpfile.js'));
+      console.dir(gulp);
       var tasks = [];
 
-      grunt.file.setBase(dirPath);
-      grunt.task.init([], {help: true});
 
-      var items = Object.keys(grunt.task._tasks);
+
+      var items = Object.keys(gulp.tasks);
       items.forEach(function (task) {
         tasks.push({
-          name: grunt.task._tasks[task].name,
-          description: grunt.task._tasks[task].info,
-          cli_command: 'grunt ' + grunt.task._tasks[task].name
+          name: gulp.tasks[task].name,
+          description: "imported task from gulpfile.js",
+          cli_command: 'gulp ' + gulp.tasks[task].name
         });
       });
 
-      taskList = tasks;
+      taskList.tasks = tasks;
       deferred.resolve(taskList);
+    } else {
+      deferred.reject("no gulpfile found");
     }
   });
 
@@ -149,28 +155,42 @@ var gulpDiscoverer = function (dirPath) {
 };
 
 
-
 exports.discover = function discover(dirPath, projectFilename) {
   var deferred = Q.defer();
   var project = {};
 
-  //var discovererPlugins = [npmDiscoverer, gruntDiscoverer, gulpDiscoverer];
+  var discovererPlugins = [npmDiscoverer, gruntDiscoverer, gulpDiscoverer];
 
-  var discovererPlugins = [npmDiscoverer, gruntDiscoverer];
+  //var discovererPlugins = [npmDiscoverer, gruntDiscoverer];
 
-  projectLoader(dirPath, projectFilename).then(function(proj){
-    discovererPlugins.forEach(function(fn){
-      var list = fn(dirPath);
-      proj.taskLists.push(fn(dirPath));
+  projectLoader(dirPath, projectFilename).then(function (proj) {
+    var taskLists = [];
+    discovererPlugins.forEach(function (fn) {
+      //var list = fn(dirPath);
+      //proj.taskLists.push(fn(dirPath));
+      taskLists.push(fn(dirPath));
     });
-    deferred.resolve(proj);
+
+    console.log(JSON.stringify(taskLists));
+    Q.allSettled(taskLists).then(function (results) {
+
+      results.forEach(function (p) {
+
+        if (p.state=="fulfilled") {
+          proj.taskLists.push(p.value);
+        }
+      });
+
+      deferred.resolve(proj);
+    });
+
   });
 
   //when all promise resolved
   /*Q.allSettled(project.taskLists).then(function(){
-    console.log("project = "+project);
-    return project;
-  });*/
+   console.log("project = "+project);
+   return project;
+   });*/
 
   return deferred.promise;
   //discoverers.

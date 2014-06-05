@@ -16,6 +16,9 @@
     "ansi-html-stream": "0.0.3",
     "ansi-to-html": "^0.2.0",
     "ansispan": "0.0.4",
+    "chai": "^1.9.1",
+    "chai-as-promised": "^4.1.1",
+    "gulp-jshint": "^1.6.2",
     "mocha": "^1.20.0",
     "q": "^1.0.1",
     "win-spawn": "^2.0.0"

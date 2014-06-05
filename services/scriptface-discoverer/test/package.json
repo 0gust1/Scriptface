@@ -1,0 +1,23 @@
+{
+  "name": "scriptface-tests",
+  "version": "0.0.0",
+  "description": "dummy json package",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "grunt",
+    "front-end",
+    "webdesign"
+  ],
+  "author": "10071495",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.7.2",
+    "gulp": "^3.7.0"
+  }
+}

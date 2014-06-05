@@ -3,6 +3,8 @@ angular.module('ScriptfaceApp')
 
     //a file was dropped
     $scope.handleDrop = function handleDrop(file) {
+      var scriptfaceDiscoverer  =require("../services/scriptface-discoverer");
+
       var fs = require('fs');
       var path = require('path');
       var clibuttonsFile = "commands.json";
