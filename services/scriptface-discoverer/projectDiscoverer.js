@@ -123,17 +123,14 @@ var gulpDiscoverer = function (dirPath) {
       var gulpPath = path.resolve(dirPath, 'node_modules', 'gulp');
 
       if (!fs.existsSync(gulpPath)) {
-        //window.alert('Unable to find local grunt.');
+        //window.alert('Unable to find local gulp.');
         return
       }
 
       var gulp = require(gulpPath); //get a 'local' gulp
       //feed the current gulpfile to local gulp
       require(path.resolve(dirPath, 'gulpfile.js'));
-      console.dir(gulp);
       var tasks = [];
-
-
 
       var items = Object.keys(gulp.tasks);
       items.forEach(function (task) {
