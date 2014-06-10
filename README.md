@@ -1,21 +1,23 @@
 # Scriptface
 
+*A desktop application providing a little dashboard for your project's scripts.*
+
+**Drop a folder on the application windows, and it will expose you a simple interface over actionnable scripts**
+
+
 ![scriptface screenshot](https://github.com/0gust1/Scriptface/raw/master/scriptface_screenshot.png "scriptface screenshot")
 
 
-A desktop application providing a little dashboard for your project's scripts.
-
-Drop a folder on the application windows, and it will expose you a simple interface over actionnable scripts
-
 This tool can be used as :
-* a sort of command-line helper
-* a first layer of documentation for your projects
+* a sort of command-line helper for people not used to command line.
+* a first layer of tooling & documentation for your team's projects
+* a lazy tool for lazy people ;)
 
 **Features :**
 * Allow project-based task definition (persisted in `command.json` file, in your project root).
 * parses and expose package.json tasks
 * parses and expose grunt tasks
-* parses and expose gulp tasks (TODO)
+* parses and expose gulp tasks (done, in the devel branch)
 * parses and expose Makefile contents (TODO)
 * ... etc. TODO
 
@@ -23,7 +25,7 @@ This tool can be used as :
 
 - node-webkit yeoman generator
 - node-webkit
-- AngularJS
+- AngularJS (will change)
 
 ## Install it :
 
@@ -31,7 +33,7 @@ This application uses node-webkit as a runtime.
 
 3 possibilities :
 
-* Grab a compiled, platform specific version, with node-webkit embedded (see pre-built binaries below).
+* Grab a packaged, platform specific version, with node-webkit embedded (see pre-built binaries below).
 * Download and install node-webkit, download the app archive (*.nw file), launch node-webkit with the app archive as parameter (not yet).
 * Download and install node-webkit, setup a build environnement (see below, "Build and run your own version").
 
@@ -67,7 +69,7 @@ Basically `node-webkit_executable_path "your_app_folder"` :
 
 You found that app useful, you want to add some features ?
 
-TODO
+The app is a pretty alpha state and important changes are planned (switching to vuejs or reactJs for example). You can be a part of them, let's talk in issues section.
 
 ## TODOs :
 
