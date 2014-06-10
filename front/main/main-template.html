@@ -14,7 +14,7 @@
         <ul class="project-menu">
             <!--<li><button class="icon-pencil">Edit</button></li>-->
             <li>
-                <button class="icon-install" ng-controller="fileCtrl" ng-click="saveFile()">Save project tasks</button>
+
             </li>
         </ul>
 
@@ -22,7 +22,7 @@
 
     <section class="task-lists">
 
-        <h2 class="task-list-title">Project tasks <span class="count">({{project.tasks.length}})</span></h2>
+        <h2 class="task-list-title custom-tasks">Project tasks <span class="count">({{project.tasks.length}})</span></h2>
 
         <ul class="task-list custom-tasks">
 
@@ -68,7 +68,10 @@
             <li>
 
         </ul>
-
+        <div class="task-list__buttons">
+            <button ng-controller="fileCtrl" ng-click="saveFile()">Save project tasks</button>
+        </div>
+       
         <h2 class="task-list-title">Npm tasks <span class="count">({{project.npm_tasks.length}})</span></h2>
         <ul class="task-list npm-tasks">
             <li ng-repeat="task in project.npm_tasks">
@@ -82,10 +85,10 @@
                         </button>
                         <div class="task-list__task__info">
                             <h3>
-                                <input type="text" editable-text="task.name" value="{{task.name || 'empty'}}">
+                                <input type="text" value="{{task.name || 'empty'}}">
                             </h3>
 
-                            <div editable-textarea="task.description" e-rows="7" e-cols="40">
+                            <div>
                                 {{task.description || 'no description'}}
                             </div>
                         </div>
@@ -124,10 +127,10 @@
                         </button>
                         <div class="task-list__task__info">
                             <h3>
-                                <input type="text" editable-text="task.name" value="{{task.name || 'empty'}}">
+                                <input type="text" value="{{task.name || 'empty'}}">
                             </h3>
 
-                            <div editable-textarea="task.description" e-rows="7" e-cols="40">
+                            <div>
                                 {{task.description || 'no description'}}
                             </div>
                         </div>

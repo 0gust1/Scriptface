@@ -101,7 +101,7 @@ input {
 
 .wrapper {
     margin: 0;
-    padding: 10em 0 0 0;
+    padding: 7em 0 0 0;
 }
 
 .about-cli_buttons {
@@ -188,6 +188,9 @@ input {
     text-align: right;
     color:#FFA736;
 }
+
+.custom-tasks.task-list-title{background:transparent;}
+
 .task-list-title .count{font-size:0.7em;}
 
 .task-list {
@@ -200,6 +203,10 @@ input {
     background-color: rgba(0, 0, 0, 0.1);
     padding: 1em;
     margin: 0 0em 2px 0em;
+}
+
+.custom-tasks .task-list__task{
+   background:transparent;
 }
 
 .task-list__task .task-main {
@@ -247,6 +254,13 @@ input {
     min-width: 40em;
     width:70%;
     background-color: transparent;
+}
+
+.task-list__buttons{
+
+}
+.task-list__buttons button{background:transparent; border:none  ;
+
 }
 
 .btn-launch {

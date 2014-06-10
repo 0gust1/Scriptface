@@ -91,20 +91,17 @@ angular.module('ScriptfaceApp')
 
           var items = Object.keys(grunt.task._tasks);
           items.forEach(function (task) {
-            tasks.push({
-              name: grunt.task._tasks[task].name,
-              description: grunt.task._tasks[task].info,
-              cli_command: 'grunt ' + grunt.task._tasks[task].name
-            });
+            //if it's a "Gruntfile" task, add it to the list
+            if(grunt.task._tasks[task].meta.info == "Gruntfile"){
+              tasks.push({
+                name: grunt.task._tasks[task].name,
+                description: grunt.task._tasks[task].info,
+                cli_command: 'grunt ' + grunt.task._tasks[task].name
+              });
+            }
           });
-          /* grunt.task._tasks.forEach(function (task) {
-           tasks.push({
-           name: task.name,
-           description: task.info,
-           cli_command: 'grunt '+task.name
-           });
-           });*/
-          console.log("GATHERED GRUNT TAKS 2 : " + JSON.stringify(grunt.task._tasks, null, '\t'));
+
+          console.log("GATHERED GRUNT TASKS : " + JSON.stringify(grunt.task._tasks, null, '\t'));
 
           $scope.project.grunt_tasks = tasks;
           $scope.$apply();
