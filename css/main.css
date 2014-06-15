@@ -201,7 +201,7 @@ input {
 
 .task-list__task {
     background-color: rgba(0, 0, 0, 0.1);
-    padding: 1em;
+    padding: 0 0 0 1em;
     margin: 0 0em 2px 0em;
 }
 
