@@ -14,9 +14,11 @@ var projectLoader = function (dirPath, projectFilename) {
   fs.readFile(path.resolve(dirPath, projectFilename), function (err, data) {
     if (!err) {
       project = JSON.parse(data);
+      project.rootDir = dirPath;
     } else {
       //Err or no file found, return an empty minimal project structure
       project.projectName = "Unnamed project";
+      project.rootDir = dirPath;
       project.taskLists = [
         {"taskListName": "Project tasks",
           "tasks": []
@@ -75,8 +77,7 @@ var gruntDiscoverer = function (dirPath) {
       var GruntPath = path.resolve(dirPath, 'node_modules', 'grunt');
 
       if (!fs.existsSync(GruntPath)) {
-        window.alert('Unable to find local grunt.');
-        return
+        deferred.reject("gruntfile found, but no local grunt");
       }
 
       var grunt = require(GruntPath); //get a 'local' grunt
@@ -100,7 +101,7 @@ var gruntDiscoverer = function (dirPath) {
       taskList.tasks = tasks;
       deferred.resolve(taskList);
     } else {
-      deferred.reject("no gruntFile");
+      deferred.reject("no gruntFile found");
     }
   });
 
@@ -123,8 +124,7 @@ var gulpDiscoverer = function (dirPath) {
       var gulpPath = path.resolve(dirPath, 'node_modules', 'gulp');
 
       if (!fs.existsSync(gulpPath)) {
-        //window.alert('Unable to find local gulp.');
-        return
+        deferred.reject("gulpfile found, but no local gulp");
       }
 
       var gulp = require(gulpPath); //get a 'local' gulp
