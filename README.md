@@ -1,5 +1,9 @@
 # Scriptface
 
+Prototype of the next iteration :
+
+http://codepen.io/anon/pen/ZYQKZX
+
 ![scriptface screenshot](https://github.com/0gust1/Scriptface/raw/master/scriptface_screenshot.png "scriptface screenshot")
 
 

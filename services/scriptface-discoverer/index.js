@@ -70,19 +70,27 @@ var gruntDiscoverer = function (dirPath) {
   taskList.taskListName = "Grunt tasks";
   taskList.tasks = [];
   var deferred = Q.defer();
+  var fileName = "";
+  if(fs.existsSync(path.resolve(dirPath, 'Gruntfile.js'))){
+    fileName = "Gruntfile.js";
+  }else{
+    if(fs.existsSync(path.resolve(dirPath, 'Gruntfile.coffee'))){
+     fileName = "Gruntfile.coffee";
+    }
+  };
 
-  fs.readFile(path.resolve(dirPath, 'Gruntfile.js'), function (err, data) {
+  fs.readFile(path.resolve(dirPath, fileName), function (err, data) {
     if (!err) {
 
       var GruntPath = path.resolve(dirPath, 'node_modules', 'grunt');
 
       if (!fs.existsSync(GruntPath)) {
-        deferred.reject("gruntfile found, but no local grunt");
+        deferred.reject("gruntfile found, but no local grunt - maybe you need to do a 'npm install'?");
       }
 
       var grunt = require(GruntPath); //get a 'local' grunt
       //feed the current gruntfile to local grunt
-      require(path.resolve(dirPath, 'Gruntfile.js'))(grunt);
+      require(path.resolve(dirPath, fileName))(grunt);
 
       var tasks = [];
 
@@ -151,14 +159,14 @@ var gulpDiscoverer = function (dirPath) {
   return deferred.promise;
 };
 
-
-exports.discover = function discover(dirPath, projectFilename) {
+module.exports = {
+  discover : function discover(dirPath, projectFilename) {
   var deferred = Q.defer();
   var project = {};
 
-  var discovererPlugins = [npmDiscoverer, gruntDiscoverer, gulpDiscoverer];
+  //var discovererPlugins = [npmDiscoverer, gruntDiscoverer, gulpDiscoverer];
 
-  //var discovererPlugins = [npmDiscoverer, gruntDiscoverer];
+  var discovererPlugins = [npmDiscoverer, gruntDiscoverer];
 
   projectLoader(dirPath, projectFilename).then(function (proj) {
     var taskLists = [];
@@ -168,27 +176,27 @@ exports.discover = function discover(dirPath, projectFilename) {
       taskLists.push(fn(dirPath));
     });
 
-    console.log(JSON.stringify(taskLists));
+
     Q.allSettled(taskLists).then(function (results) {
+        results.forEach(function (p) {
+          console.log(JSON.stringify(taskLists));
+          if (p.state=="fulfilled") {
+            proj.taskLists.push(p.value);
+          }
+        });
 
-      results.forEach(function (p) {
-
-        if (p.state=="fulfilled") {
-          proj.taskLists.push(p.value);
-        }
+        deferred.resolve(proj);
       });
 
-      deferred.resolve(proj);
     });
 
-  });
+    //when all promise resolved
+    /*Q.allSettled(project.taskLists).then(function(){
+     console.log("project = "+project);
+     return project;
+     });*/
 
-  //when all promise resolved
-  /*Q.allSettled(project.taskLists).then(function(){
-   console.log("project = "+project);
-   return project;
-   });*/
-
-  return deferred.promise;
-  //discoverers.
-}
+    return deferred.promise;
+    //discoverers.
+  }
+};

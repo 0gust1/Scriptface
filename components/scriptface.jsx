@@ -23,13 +23,24 @@ var data ={
   ]
 };
 
-
+var utils = {};
+var path = require('path');
+var Promise = require('bluebird');
+var disco = require(path.resolve(process.env.PWD,'services/scriptface-discoverer'));
 const scriptfaceFilename = "scriptface.json";
+
+//Promise.promisifyAll(disco);
+
+console.log(process.env.PWD);
 
 var ScriptFaceApp = React.createClass({
 
     handleDrop:function(path){
-
+        var that = this;
+        disco.discover(path,scriptfaceFilename).then(function(val){
+        //console.log(val);
+        that.setState(val);
+        });
     },
     launchTask:function(index){
         var newState = this.state;
@@ -38,37 +49,25 @@ var ScriptFaceApp = React.createClass({
     },
     getInitialState: function() {
     return {
-  "projectName": "Scriptface example",
-  "taskLists": [
-    {"taskListName": "Project tasks",
-      "tasks": [
-        {
-          "name": "Ping google",
-          "description": "some random script",
-          "cli_command": "ping google.com"
-        },
-        {
-          "name": "npm install",
-          "description": "Install nodeJs dependencies",
-          "cli_command": "npm install"
-        },
-        {
-          "name": "npm ls",
-          "description": "list nodejs packages",
-          "cli_command": "npm ls"
-        }
-      ]
-    }
-  ]
+    initialized:false
 };
   },
   render: function renderApp(){
+    var taskLists = this.state.taskLists;
+    var dashboardTaskList = taskLists.shift();
+    var discoveredTasksLists = taskLists;
+    var cx = React.addons.classSet;
+     var classes = cx({
+        'app-initialized':this.state.initialized,
+        'scriptface-app':true
+      });
     return (
-      <div className="scriptface-app">
+      <div className={classes}>
         <h2>{this.state.projectName?this.state.projectName:"no project loaded"}</h2>
-        <DropZone/>
-        <DashBoard/>
-        <ScannedTasks/>
+        {this.state.rootDir}
+        <DropZone onDrop={this.handleDrop}/>
+        <DashBoard onLaunch={this.launchTask} taskList={dashboardTaskList}/>
+        <ScannedTasks onLaunch={this.launchTask} taskLists={discoveredTasksLists}/>
       </div>
     );
   }
@@ -86,7 +85,7 @@ var DropZone = React.createClass({
     console.log(e);
     var files = e.dataTransfer.files;
     console.log(files[0]);
-    //this.props.onDrop(files[0]);
+    this.props.onDrop(files[0].path);
   },
   render : function renderDropZone(){
     return(
@@ -97,10 +96,16 @@ var DropZone = React.createClass({
 
 var DashBoard = React.createClass({
   render : function renderDashBoard(){
+     var tasks = this.props.taskList.tasks.map(function(task, index){
+      return(
+          <Task task={task} index={index}/>
+        );
+    });
     return(
         <section className="dashboard">
+          <h2>{this.props.taskList.taskListName}</h2>
           <ul>
-            <Task/>
+            {tasks}
           </ul>
         </section>
       );
@@ -109,13 +114,14 @@ var DashBoard = React.createClass({
 
 var ScannedTasks = React.createClass({
   render : function renderScanned(){
+    var taskLists = this.props.taskLists.map(function(tasklist, index){
+      return(
+          <DashBoard taskList={tasklist}/>
+        );
+    });
     return(
       <div>
-        <section className="grunt">
-          <ul>
-            <Task/>
-          </ul>
-        </section>
+        {taskLists}
       </div>
       );
   }
@@ -127,7 +133,8 @@ var Task = React.createClass({
         <li>
           <div className="task-bar">
               <button type="button" className="run-controls">Launch</button>
-              <h4>Task name</h4>
+              <h4>{this.props.task.name}</h4>
+              <p>{this.props.task.description}</p>
               <button type="button" className="show-details">Show details</button>
           </div>
           <div className="task-details">
